@@ -1,0 +1,14 @@
+.panel{
+    margin: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: #F0F0F0;
+    box-shadow: 2px 2px 5px grey;
+    font-family: "Bookman Old Style";
+}
+
+.panel .panel-heading{
+    margin: 0px -10px;
+    background-color: #79DCFE;
+    border-radius: 10px;
+}
