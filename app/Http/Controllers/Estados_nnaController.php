@@ -104,4 +104,8 @@ class Estados_nnaController extends Controller
         Session::flash('message-success','Estado eliminado correctamente');
         return Redirect::to('/EstadosNNA');
     }
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 }

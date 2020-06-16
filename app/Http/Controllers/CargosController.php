@@ -104,4 +104,8 @@ class CargosController extends Controller
         Session::flash('message-success','Cargo eliminado correctamente');
         return Redirect::to('/Cargos');
     }
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 }

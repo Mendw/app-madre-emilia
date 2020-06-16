@@ -123,4 +123,8 @@ class PatologiasNNAController extends Controller
         Session::flash('message-success','Asociación eliminada correctamente');
         return Redirect::to('/PatologiasNNA');
     }
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 }

@@ -7,17 +7,24 @@
 		<div class="panel-header">
 			<div class="panel-heading"></div>
 			<div class="row" style="margin: 10px;">
-					<div class="col-10">
+					<div class="col-7">
 						<h4>Niños, niñas y adolescentes</h4>
 					</div>
-					<div>
+					<div class="col-2">
 						<a  href="{!!URL::to('/NNA/create')!!}">
 							<div class="btn btn-info" style="text-align: center">
 								Crear Niño
 							</div>
 						</a>
 					</div>
-				</div>
+					<div class="col-2">
+						<a  href="{!!URL::to('/report')!!}" target="_blank">
+							<div class="btn btn-info" style="text-align: center">
+								Generar Reporte
+							</div>
+						</a>
+					</div>
+			</div>
 		</div>
 		<div class="panel-body">
 			<div>

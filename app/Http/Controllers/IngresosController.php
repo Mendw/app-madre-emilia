@@ -128,4 +128,9 @@ class IngresosController extends Controller
         Session::flash('message-success','Ingreso eliminado correctamente');
         return Redirect::to('/Ingresos');
     }
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 }

@@ -1,5 +1,4 @@
 <?php
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -12,7 +11,13 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+
+    if (Auth::check()) {
+        return redirect('NNA');
+    }
+    else{
+        return view('auth.login');
+    }
 });
 
 /* Usuarios */
@@ -63,3 +68,13 @@ Route::resource('Patologias','PatologiasController');
 
 /* PatologiasNNA */
 Route::resource('PatologiasNNA','PatologiasNNAController');
+
+/* Autorizacion/Login */
+Auth::routes(['register' => false]);
+Route::get('/home', 'HomeController@index')->name('home');
+
+/* PDF de un niño */
+Route::get('pdf/{id}','NNAController@singleKidToPdf')->name('pdf.buildpdf');
+
+/* PDF de reporte */
+Route::get('report','NNAController@generateReport')->name('pdf.generatereport');

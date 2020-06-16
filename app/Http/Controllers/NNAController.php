@@ -4,15 +4,16 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\NNA;
+use App;
+use PDF;
 use App\Grados_instruccion;
 use App\Escolaridades;
 use App\Medidas_proteccion;
 use App\Estados_nna;
-
+use DB;
 use Input;
 use Session;
 use Redirect;
-use DB;
 
 use App\Http\Requests;
 use App\Http\Requests\NNARequest;
@@ -132,5 +133,84 @@ class NNAController extends Controller
         
         Session::flash('message-success','Niño, niña o adelescente eliminado correctamente');
         return Redirect::to('/NNA');
+    }
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    public function contarNinos(){
+
+        $total= NNA::all()->count();
+        $activos = DB::table('nna')
+                    ->join('estados_nna', 'estados_nna.id', '=', 'nna.id_estado')
+                    ->where('estados_nna.nombre','activo')
+                    ->count();
+
+        $inactivos = $total - $activos;
+
+        $niños = [
+            "total" => $total,
+            "activos" => $activos,
+            "inactivos" => $inactivos,
+        ];
+        return $niños;
+    }
+
+    public function singleKidToPdf($id)
+    {
+        $nna = NNA::find($id);
+        $grado_instruccion = Grados_instruccion::find($nna->id_grado);
+        $escolaridades = Escolaridades::find($nna->id_escolaridad);
+        $medidas_proteccion = Medidas_proteccion::find($nna->id_medida);
+        $estados_nna = Estados_nna::find($nna->id_estado);
+
+        $data = [
+            "cedula" => $nna->cedula,
+            "nombre" => $nna->mombre,
+            "apellido" => $nna->apellido,
+            "fecha_nacimiento"=> $nna->fecha_nacimiento,
+            "lugar_nacimiento"=> $nna->lugar_nacimiento,
+            "direccion"=> $nna->direccion,
+            "telefono"=> $nna->telefono,
+            "medida_proteccion"=> $medidas_proteccion->nombre, 
+            "numero_medida"=> $nna->numero_medida, 
+            "expediente"=> $nna->expediente, 
+            "fecha_medida"=> $nna->fecha_medida, 
+            "grado_instruccion"=> $grado_instruccion->nombre, 
+            "escolaridad"=> $escolaridades->nombre, 
+            "unidad_educativa"=> $nna->unidad_educativa, 
+            "direccion_unidad_educativa"=> $nna->direccion_unidad_educativa, 
+            "tipo_sangre"=> $nna->tipo_sangre, 
+            "estado"=> $estados_nna->nombre, 
+            "evaluacion_psicologica"=> $nna->evaluacion_psicologica,
+            "talla"=> $nna->talla,
+            "peso"=> $nna->peso,
+        ];
+
+        $pdf = App::make('dompdf.wrapper');
+        $pdf = PDF::loadView('pdf',$data);
+        return $pdf->stream();
+    }
+
+    public function generateReport(){
+        $estadisticas = NNAController::contarNinos();
+        $data = DB::table('nna')
+        ->join('estados_nna', 'estados_nna.id', '=', 'nna.id_estado')
+        ->join('medidas_proteccion', 'medidas_proteccion.id', '=', 'nna.id_medida')
+        ->join('grados_instruccion','grados_instruccion.id','=','nna.id_grado')
+        ->join('escolaridades','escolaridades.id','nna.id_escolaridad')
+        ->select('nna.cedula','nna.nombre','nna.apellido','nna.fecha_nacimiento','nna.lugar_nacimiento',
+                'nna.direccion','nna.telefono','nna.numero_medida','nna.expediente','nna.fecha_medida',
+                'nna.unidad_educativa','nna.direccion_unidad_educativa','nna.tipo_sangre',
+                'nna.evaluacion_psicologica','nna.talla','nna.peso',
+                'medidas_proteccion.nombre as medida_proteccion',
+                'grados_instruccion.nombre as grado_instruccion',
+                'escolaridades.nombre as escolaridad',
+                'estados_nna.nombre as estado')
+        ->get();       
+        $pdf = App::make('dompdf.wrapper');
+        $pdf = PDF::loadView('reporte',$estadisticas,compact('data'));
+        return $pdf->stream();
     }
 }

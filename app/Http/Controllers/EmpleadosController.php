@@ -116,4 +116,8 @@ class EmpleadosController extends Controller
         Session::flash('message-success','Empleado eliminado correctamente');
         return Redirect::to('/Empleados');
     }
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 }

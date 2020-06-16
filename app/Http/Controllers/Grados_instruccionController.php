@@ -104,4 +104,9 @@ class Grados_instruccionController extends Controller
         Session::flash('message-success','Grado de instrucción eliminado correctamente');
         return Redirect::to('/GradosInstruccion');
     }
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 }

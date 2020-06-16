@@ -113,4 +113,9 @@ class PatologiasController extends Controller
         Session::flash('message-success','Patología eliminada correctamente');
         return Redirect::to('/Patologias');
     }
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 }

@@ -104,4 +104,8 @@ class Medidas_proteccionController extends Controller
         Session::flash('message-success','Medida de protección eliminada correctamente');
         return Redirect::to('/MedidasProteccion');
     }
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 }

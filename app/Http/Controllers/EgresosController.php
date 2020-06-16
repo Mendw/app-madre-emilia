@@ -123,4 +123,9 @@ class EgresosController extends Controller
         Session::flash('message-success','Egreso eliminado correctamente');
         return Redirect::to('/Egresos');
     }
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 }

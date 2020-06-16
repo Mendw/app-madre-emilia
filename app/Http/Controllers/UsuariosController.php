@@ -105,4 +105,8 @@ class UsuariosController extends Controller
         Session::flash('message-success','Usuario eliminado correctamente');
         return Redirect::to('/Usuarios');
     }
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 }

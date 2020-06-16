@@ -104,4 +104,9 @@ class OrganismosController extends Controller
         Session::flash('message-success','Organismo eliminado correctamente');
         return Redirect::to('/Organismos');
     }
+    
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }   
 }

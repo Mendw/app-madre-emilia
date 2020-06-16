@@ -116,4 +116,9 @@ class FuncionariosController extends Controller
         Session::flash('message-success','Funcionario eliminado correctamente');
         return Redirect::to('/Funcionarios');
     }
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 }

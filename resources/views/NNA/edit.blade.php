@@ -25,17 +25,24 @@
                     @include('NNA.form.nnaEdit')
             
                 <div class="row">
-                    <div class="col-1"></div>
-                    <div class="col-5" style="text-align:right">
+                    
+                    <div class="col-sm-4" style="text-align:left">
                         <button type="submit" class="btn btn-success" style="width:100%"><i class="fas fa-save"></i> Guardar</button>
                     </div>
                     {!!Form::close()!!}
-                    <div class="col-5" style="text-align:left">
-                        {!!Form::open(['route'=>['NNA.destroy', $nna], 'method' => 'DELETE'])!!}
-                            <button type="submit" class="btn btn-danger" style="width:100%"><i class="fas fa-trash"></i> Eliminar</button>
-                        {!!Form::close()!!}
+                    
+                    <div class="col-sm-4" style="text-align:center">
+                    {!!Form::open(['route'=>['NNA.destroy', $nna], 'method' => 'DELETE'])!!}
+                        <button type="submit" class="btn btn-danger" style="width:100%"><i class="fas fa-trash"></i> Eliminar</button>
                     </div>
-                    <div class="col-1"></div>
+                    {!!Form::close()!!}
+
+                    <div class="col-sm-4" style="text-align:right">
+                    {!!Form::open(['route'=>['pdf.buildpdf', $nna], 'method' => 'GET'])!!}
+                    <button type="submit" class="btn btn-info" style="width:100%" target="_blank"><i class="fas fa-file-pdf"></i> PDF</button>
+                    {!!Form::close()!!}
+                    </div>
+                    
                 </div>
             </div>
         </div>

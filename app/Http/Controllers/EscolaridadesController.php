@@ -104,4 +104,8 @@ class EscolaridadesController extends Controller
         Session::flash('message-success','Escolaridad eliminada correctamente');
         return Redirect::to('/Escolaridades');
     }
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 }

@@ -123,4 +123,8 @@ class FamiliaresNNAController extends Controller
         Session::flash('message-success','Asociación eliminada correctamente');
         return Redirect::to('/FamiliaresNNA');
     }
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 }

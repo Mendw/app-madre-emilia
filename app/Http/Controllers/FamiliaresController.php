@@ -113,4 +113,8 @@ class FamiliaresController extends Controller
         Session::flash('message-success','Familiar eliminado correctamente');
         return Redirect::to('/Familiares');
     }
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 }
