@@ -167,7 +167,7 @@ class NNAController extends Controller
 
         $data = [
             "cedula" => $nna->cedula,
-            "nombre" => $nna->mombre,
+            "nombre" => $nna->nombre,
             "apellido" => $nna->apellido,
             "fecha_nacimiento"=> $nna->fecha_nacimiento,
             "lugar_nacimiento"=> $nna->lugar_nacimiento,
