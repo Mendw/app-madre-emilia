@@ -25,7 +25,7 @@ class UsuariosRequest extends Request
     {
         return [
             'name'          => 'required',
-            'email'         => 'required|email|unique:Usuarios,email,'.$this->id,     
+            'email'         => 'required|email|unique:Users,email,'.$this->id,     
             'password'      => 'required|min:6',
             'password2'     => 'required|min:6|same:password', 
         ];
