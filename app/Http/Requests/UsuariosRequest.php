@@ -26,8 +26,8 @@ class UsuariosRequest extends Request
         return [
             'name'          => 'required',
             'email'         => 'required|email|unique:Users,email,'.$this->id,     
-            'password'      => 'required|min:6',
-            'password2'     => 'required|min:6|same:password', 
+            'password'      => 'required|min:8',
+            'password2'     => 'required|min:8|same:password', 
         ];
     }
 
@@ -41,7 +41,8 @@ class UsuariosRequest extends Request
 
             'email.unique'          => 'Ya existe un usuario con ese email asignado',
 
-            'password.min'          => 'La contraseña debe contener 6 caracteres como mínimo',
+            'password.min'          => 'La contraseña debe contener 8 caracteres como mínimo',
+            'password2.min'          => 'La confirmación debe contener 8 caracteres como mínimo',
             'password2.same'        => 'Las contraseñas deben coincidir',
             
         ];

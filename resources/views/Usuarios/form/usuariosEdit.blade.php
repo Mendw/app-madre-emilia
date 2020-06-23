@@ -19,7 +19,7 @@
 <div class="row">
 	<div class="form-group col-lg-3 col-md-3 col-sm-3 round-input"></div>
 	<div class="form-group col-lg-6 col-md-6 col-sm-6 round-input">
-		{!!Form::password('password',['class'=>'form-control','placeholder'=>'Ingrese la contraseña (mínimo 6 caracteres)'])!!}
+		{!!Form::password('password',['class'=>'form-control','placeholder'=>'Ingrese la contraseña (mínimo 8 caracteres)'])!!}
 	</div>
 </div>
 <div class="row">
